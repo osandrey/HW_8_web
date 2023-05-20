@@ -28,4 +28,4 @@ class User(Document):
 #Щоб створити достатньо інстенсмювати.
 
 user_1 = User(name='Jack')
-connection
+
