@@ -5,7 +5,7 @@ import json
 import faker
 from models import Contact
 
-CONTACTS_NUMBER = 50
+CONTACTS_NUMBER = 3
 fake_data = faker.Faker('uk_UA')
 
 credentials = pika.PlainCredentials('guest', 'guest')
@@ -16,6 +16,7 @@ channel = connection.channel()
 channel.exchange_declare(exchange='email_service', exchange_type='direct')
 channel.queue_declare(queue='email_queue', durable=True)
 channel.queue_bind(exchange='email_service', queue='email_queue')
+
 
 
 def generate_fake_data(contact_number) -> tuple():
@@ -29,6 +30,8 @@ def generate_fake_data(contact_number) -> tuple():
 
 
 def main():
+
+
 
     contacts = Contact.objects()
     for contact in contacts:

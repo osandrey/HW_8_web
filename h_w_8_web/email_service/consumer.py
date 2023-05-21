@@ -1,27 +1,54 @@
 import pika
-
+import smtplib, ssl
 import time
 import json
 from models import Contact
-
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 
 
 def send_email(message):
-    print(f' [*] Email {message["payload"]} was successfully sent!')
+    # print(f' [*] Email {message["payload"]} was successfully sent!')
+    user_name = message.get('payload')[0]
+    print(user_name)
+    Host = 'smtp.meta.ua'
+    Port = 465
+    Sender = 'vlad_bb@meta.ua'
+    Sender_password = 'tQM2JULusy'
 
+    # Enter your address
+    target_email = message.get("payload")[1]
+    receiver_email = target_email  # Enter receiver address
+    # password = input("Type your password and press enter: ")
+    # email_message = f"Subject: Hi {message.get('payload')[0]}\n {message.get('text')}"
+    # context = ssl.create_default_context()
+    with smtplib.SMTP_SSL(Host, Port) as server:
+        try:
+            server.login(Sender, Sender_password)
+            message = MIMEMultipart()
+            message['From'] = Sender
+            message['To'] = receiver_email
+            message['Subject'] = f"Subject: Hi {user_name}"
+            message.attach(MIMEText(message.get('text'), 'plain', 'utf-8'))
+        except Exception as err:
+            print(f'MY ERROR IS: {err}')
 
 def set_delivered(user_id):
     user = Contact.objects(id=user_id).first()
-    user.is_delivered = True
+    if user:
+
+        user.is_delivered = True
     # print(user.name, user.is_delivered)
-    user.save()
+        user.save()
+    else:
+        print('User was not found!')
 
 
 
 def callback(ch, method, properties, body):
     message = json.loads(body.decode())
-    print(f" [x] Received {message}")
+    print(f" [x] Received {message}, {type(message)}")
     send_email(message)
     set_delivered(message["id"])
     time.sleep(1)
