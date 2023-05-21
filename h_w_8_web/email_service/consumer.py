@@ -26,6 +26,7 @@ def send_email(message):
     context = ssl.create_default_context()
     with smtplib.SMTP(Host, Port) as server:
         try:
+            context.check_hostname = False
             server.starttls(context=context)
             server.login(Sender, Sender_password)
 

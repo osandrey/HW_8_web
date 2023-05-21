@@ -12,7 +12,7 @@ fake_data = faker.Faker('uk_UA')
 
 credentials = pika.PlainCredentials('guest', 'guest')
 connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='localhost', port=5672, tlsCAFile=certifi.where(), ssl=True, credentials=credentials))
+    pika.ConnectionParameters(host='localhost', port=5672, credentials=credentials))
 channel = connection.channel()
 
 channel.exchange_declare(exchange='email_service', exchange_type='direct')
