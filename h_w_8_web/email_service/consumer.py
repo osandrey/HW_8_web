@@ -12,10 +12,10 @@ def send_email(message):
     # print(f' [*] Email {message["payload"]} was successfully sent!')
     user_name = message.get('payload')[0]
     print(user_name)
-    Host = 'smtp.meta.ua'
-    Port = 465
-    Sender = 'vlad_bb@meta.ua'
-    Sender_password = 'tQM2JULusy'
+    Host = 'smtp.gmail.com'
+    Port = 587
+    Sender = 'py.dev.1990@gmail.com'
+    Sender_password = 'qaccmvjffayidjuq'
 
     # Enter your address
     target_email = message.get("payload")[1]
