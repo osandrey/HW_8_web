@@ -15,8 +15,8 @@ def send_email(message):
     print(user_name)
     Host = 'smtp.gmail.com'
     Port = 587
-    Sender = 'py.dev.1990@gmail.com'
-    Sender_password = 'qaccmvjffayidjuq'
+    Sender = 'osandreyman@gmail.com'
+    Sender_password = ********
 
     # Enter your address
     target_email = message.get("payload")[1]
