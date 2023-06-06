@@ -15,7 +15,7 @@ def send_email(message):
     print(user_name)
     Host = 'smtp.gmail.com'
     Port = 587
-    Sender = 'osandreyman@gmail.com'
+    Sender = '$$$$$$@gmail.com'
     Sender_password = ********
 
     # Enter your address
